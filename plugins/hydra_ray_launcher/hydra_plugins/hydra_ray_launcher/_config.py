@@ -173,23 +173,9 @@ class RsyncConf:
 
 @dataclass
 class EnvSetupConf:
-    pip_packages: Dict[str, str] = field(
-        default_factory=lambda: {
-            "omegaconf": "${ray_pkg_version:omegaconf}",
-            "hydra_core": "${ray_pkg_version:hydra}",
-            "ray": "${ray_pkg_version:ray}",
-            "cloudpickle": "${ray_pkg_version:cloudpickle}",
-            "pickle5": get_distribution("pickle5").version,
-            "hydra_ray_launcher": get_distribution("hydra_ray_launcher").version,
-        }
-    )
+    pip_packages: Dict[str, str] = field(default_factory=dict)
 
-    commands: List[str] = field(
-        default_factory=lambda: [
-            "conda create -n hydra_${python_version:micro} python=${python_version:micro} -y",
-            "echo 'export PATH=\"$HOME/anaconda3/envs/hydra_${python_version:micro}/bin:$PATH\"' >> ~/.bashrc",
-        ]
-    )
+    commands: List[str] = field(default_factory=list)
 
 
 class RayRunEnv(Enum):
