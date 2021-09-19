@@ -155,7 +155,7 @@ def launch_jobs(
             sdk.run_on_cluster(
                 config,
                 run_env=launcher.ray_cfg.run_env.name,
-                cmd=f"python {remote_script_path} {remote_tmp_dir}",
+                cmd=f"poetry run python {remote_script_path} {remote_tmp_dir}",
             )
 
             sdk.rsync(
